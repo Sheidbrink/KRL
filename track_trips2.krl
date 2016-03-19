@@ -16,7 +16,7 @@ ruleset track_trips {
         attrsLog = event:attrs().klog("My attributes are: ");
     }
     fired {
-      raise explicit event 'found_long_trip' if milg > long_trip;
+      raise explicit event 'found_long_trip' attributes event:attrs() if milg > long_trip;
       log("Proof (4) works: " + attrsLog);
     }
   }
