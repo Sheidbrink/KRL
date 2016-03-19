@@ -12,8 +12,12 @@ ruleset track_trips {
   }
   rule find_long_trips {
     select when explicit trip_processed mileage "(.*)" setting(milg)
+    pre {
+        attrsLog = event:attrs().klog("My attributes are: ");
+    }
     fired {
       raise explicit event 'found_long_trip' if milg > long_trip;
+      log("Proof (4) works: " + attrsLog);
     }
   }
 }
