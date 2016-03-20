@@ -20,14 +20,14 @@ ruleset trip_store {
   rule collect_trips {
     select when explicit trip_processed mileage "(.*)" setting(milg)
     fired {
-      set ent:trips{[timestamp, "mileage"]} milg;
+      set ent:trips{time:now()} milg;
     }
   }
 
   rule collect_long_trips {
     select when explicit found_long_trip mileage "(.*)" setting(milg)
     fired {
-      set ent:long_trips{[timestamp, "mileage"]} milg;
+      set ent:long_trips{time:now()} milg;
     }
   }
 
