@@ -7,7 +7,7 @@ ruleset trip_store {
 
   global {
     trips = function() {
-      ent:trips;
+      ent:trips.klog("test");
     }
     long_trips = function() {
       ent:long_trips;
