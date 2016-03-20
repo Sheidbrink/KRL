@@ -20,9 +20,9 @@ ruleset trip_store {
   rule collect_trips {
     select when explicit trip_processed mileage "(.*)" setting(milg)
     fired {
-      milg.klog("Adding mlog: ");
+      log("Adding mlog: " + milg);
       set ent:trips{time:now()} milg;
-      ent:trips.klog("Trips so far: ");
+      log("Trips so far: " + ent:trips);
     }
   }
 
