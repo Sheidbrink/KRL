@@ -13,7 +13,7 @@ ruleset trip_store {
       ent:long_trips;
     }
     short_trips = function() {
-      ent:trips.difference(ent:long_trips);
+      ent:trips.filter(function(k,v){ent:trips{k} != ent:long_trips{k}});
     }
   }
 
