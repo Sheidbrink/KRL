@@ -1,5 +1,6 @@
 ruleset trip_store {
   meta {
+    name "trip_store"
     author "Scott Heidbrink"
     sharing on
     provides trips, long_trips, short_trips

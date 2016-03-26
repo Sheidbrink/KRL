@@ -1,4 +1,8 @@
 ruleset echo {
+  meta {
+    name "echo"
+    author "Scott Heidbrink"
+  }
   rule hello {
     select when echo hello
     send_directive("say") with

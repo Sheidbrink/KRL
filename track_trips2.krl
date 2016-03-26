@@ -1,4 +1,7 @@
 ruleset track_trips {
+  meta {
+    name "track_trips_v2"
+  }
   global {
     long_trip = 10
   }
