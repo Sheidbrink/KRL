@@ -7,26 +7,43 @@ ruleset manage_fleet {
     author "Scott Heidbrink"
     use module b507199x5 alias wranglerOS
   }
+
+  global {
+    vehicles = function() {
+      results = wranglerOS:subscriptions();
+      subscriptions = results{"subscriptions"};
+      subscriptions;
+    }
+    //alltrips = function() {
+    //  foreach subscription setting (x)
+        //call trips
+    //}
+  }
+
+  rule delete_vehicle {
+    select when car unneeded_vehicle
+    pre {
+      attributes = {}.put(["channel_name"],event:attr("channel_name"))
+                     .put(["deletionTarget"], event:attr("deleteeci"));
+    }
+    {
+      event:send({"cid":meta:eci()}, "wrangler", "subscription_cancellation") with attrs = attributes("attributes: ");
+      event:send({"cid":meta:eci()}, "wrangler", "child_deletion") with attrs = attributes("attributes: ");
+    }
+  }
+
   rule create_vehicle {
     select when car new_vehicle
     //create a pico
     pre {
       // b507766x2 is the trips ruleset
-      attributes= {}.put(["Prototype_rids"],"b507766x2").put(["name"],event:attr("name").klog("Create vehicle: "));
+      attributes = {}.put(["Prototype_rids"],"b507766x6").put(["name"],event:attr("name").klog("Create vehicle: "));
     }
     {
       noop();
       event:send({"cid":meta:eci()}, "wrangler", "child_creation")
          with attrs = attributes.klog("attributes: ");
     }
-    //always {
-     // raise wrangler event "child_creation"
-     // attributes attr.klog("attributes: ");
-     // log("create child for " + child);
-      //subscription between this pico and the vehicle
-      
-      //install the track _trips rulset b507766x2
-    //}
   }
 
   rule autoAccept {

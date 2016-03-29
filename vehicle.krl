@@ -13,7 +13,7 @@ ruleset vehicle {
       parent_results = wrangler_api:parent();
       parent = parent_results{'parent'};
       parent_eci = parent[0];
-      attrs = {}.put(["name"], "Family")
+      attributes = {}.put(["name"], "Family")
                 .put(["name_space"], "Tutorial_Subscriptions")
                 .put(["my_role"], "Child")
                 .put(["your_role"], "Parent")
