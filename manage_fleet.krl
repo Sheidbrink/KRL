@@ -16,15 +16,17 @@ ruleset manage_fleet {
     }
     {
       noop();
+      event:send({"cid":meta:eci()}, "wrangler", "child_creation")
+         with attrs = attributes.klog("attributes: ");
     }
-    always {
-      raise wrangler event "child_creation"
-      attributes attr.klog("attributes: ");
-      log("create child for " + child);
+    //always {
+     // raise wrangler event "child_creation"
+     // attributes attr.klog("attributes: ");
+     // log("create child for " + child);
       //subscription between this pico and the vehicle
       
       //install the track _trips rulset b507766x2
-    }
+    //}
   }
 
   rule autoAccept {
