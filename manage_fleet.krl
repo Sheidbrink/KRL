@@ -35,12 +35,8 @@ ruleset manage_fleet {
       attributes = event:attrs().klog("subscription :");
     }
     {
-      noop();
-    }
-    always {
-      raise wrangler event 'pending_subscription_approvel'
-        attributes attributes;
-        log("auto accepted subscription.");
+      event:send({"cid":meta:eci()}, "wrangler", "pending_subscription_approval") with attrs = attributes.klog("attributes: ");
+      log("auto accepted subscription.");
     }
   }
 }

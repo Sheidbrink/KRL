@@ -22,11 +22,7 @@ ruleset vehicle {
                 .put(["attrs"], "success");
     }
     {
-      noop();
-    }
-    always {
-      raise wrangler event "subscription"
-      attributes attrs;
+      event:send({"cid":meta:eci()}, "wrangler", "subscription") with attrs = attributes.klog("attributes: ");
     }
   }
 }
