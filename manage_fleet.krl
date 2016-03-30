@@ -37,11 +37,11 @@ ruleset manage_fleet {
     //create a pico
     pre {
       // b507766x2 is the trips ruleset
-      attributes = {}.put(["Prototype_rids"],"b507766x6").put(["name"],event:attr("name").klog("Create vehicle: "));
+      attributes = {}.put(["Prototype_rids"],"b507766x6;b507766x5").put(["name"],event:attr("name").klog("Create vehicle: "));
     }
     {
       noop();
-      event:send({"cid":meta:eci().klog("meta exi:" )}, "wrangler", "child_creation")
+      event:send({"cid":meta:eci().klog("meta eci:" )}, "wrangler", "child_creation")
          with attrs = attributes.klog("attributes: ");
     }
   }
