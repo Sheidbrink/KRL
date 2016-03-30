@@ -6,6 +6,8 @@ ruleset manage_fleet {
     >>
     author "Scott Heidbrink"
     use module b507199x5 alias wranglerOS
+    sharing on
+    provides vehicles
   }
 
   global {
