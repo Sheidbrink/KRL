@@ -41,7 +41,7 @@ ruleset manage_fleet {
     }
     {
       noop();
-      event:send({"cid":meta:eci()}, "wrangler", "child_creation")
+      event:send({"cid":meta:eci().klog("meta exi:" )}, "wrangler", "child_creation")
          with attrs = attributes.klog("attributes: ");
     }
   }
