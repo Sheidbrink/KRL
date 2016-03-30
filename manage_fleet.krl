@@ -47,7 +47,7 @@ ruleset manage_fleet {
   }
 
   rule autoAccept {
-    select when wrangle inbound_pending_subscription_added
+    select when wrangler inbound_pending_subscription_added
     pre {
       attributes = event:attrs().klog("subscription :");
     }
