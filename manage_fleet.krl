@@ -38,8 +38,9 @@ ruleset manage_fleet {
     select when car new_vehicle
     //create a pico
     pre {
-      // b507766x2 is the trips ruleset
-      attributes = {}.put(["Prototype_rids"],"b507766x6;b507766x5").put(["name"],event:attr("name").klog("Create vehicle: "));
+      attributes = {}.put(["Prototype_rids"],"b507766x6;b507766x5")
+                     .put(["name"],event:attr("name"))
+                     .pu(["sname"],event:attr("sname"));
     }
     {
       noop();
