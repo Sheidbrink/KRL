@@ -14,7 +14,7 @@ ruleset vehicle {
       parent = parent_results{'parent'};
       parent_eci = parent[0];
       attributes = {}.put(["name"], event:attr("sname"))
-                .put(["name_space"], "Vehicle_Subscription")
+                .put(["name_space"], "Vehicle_Subscriptions")
                 .put(["my_role"], "Child")
                 .put(["your_role"], "Parent")
                 .put(["target_eci"], parent_eci.klog("target Eci: "))

@@ -13,7 +13,7 @@ ruleset manage_fleet {
   global {
     vehicles = function() {
       results = wranglerOS:subscriptions();
-      subscriptions = results{"subscriptions"}.filter(function(x) {x{["subscribed", "name_space"]} == "Vehicle_Subscriptions" } );
+      subscriptions = results{"subscriptions"}.filter(function(x) {x{["subscribed", "name_space"]} == reg"Vehicle_Subscriptions:*" } );
       subscriptions;
     }
     //alltrips = function() {
