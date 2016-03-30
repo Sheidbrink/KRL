@@ -40,7 +40,7 @@ ruleset manage_fleet {
     pre {
       attributes = {}.put(["Prototype_rids"],"b507766x6;b507766x5")
                      .put(["name"],event:attr("name"))
-                     .pu(["sname"],event:attr("sname"));
+                     .put(["sname"],event:attr("sname"));
     }
     {
       noop();
