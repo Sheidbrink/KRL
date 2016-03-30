@@ -5,7 +5,7 @@ ruleset vehicle {
       Ruleset to handle vehicle subscriptions
     >>
     author "Scott Heidbrink"
-    use module b507199x5 alias wranglerOS
+    use module b507199x5 alias wrangler_api
   }
   rule subscribeToParent {
     select when wrangler init_events
