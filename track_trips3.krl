@@ -69,7 +69,7 @@ ruleset track_trips {
       parent_eci = parent[0];
     }
     {
-      event:send({"eci": parent_eci}, "fleet", "collect_report") with attrs = {}.put(["trips"], trips());
+      event:send({"eci": parent_eci}, "fleet", "collect_report") with attrs = {}.put(["trips"], trips()).put(["name"], event:attr{"name"});
     }
   }
 

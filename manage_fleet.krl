@@ -55,7 +55,7 @@ ruleset manage_fleet {
 		eci = myvals{"event_eci"};
 		}
 	{
-		event:send({"cid":eci}, "car", "send_report");
+		event:send({"cid":eci}, "car", "send_report") with attrs = {}.put(["name"], vehicle[0]);
 	}
     }
   
@@ -63,7 +63,8 @@ ruleset manage_fleet {
   rule collect_report {
     select when fleet collect_report
     fired {
-      set ent:report{time:now()} event:attr{"trips"};
+      clear ent:report;
+      set ent:report{event:attr{"name"}} event:attr{"trips"};
       log(ent:report);
     }
   }
