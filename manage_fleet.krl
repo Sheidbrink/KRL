@@ -24,10 +24,11 @@ ruleset manage_fleet {
     }
     alltrips = function() {
       trips = vehicles.map(function(x) {
-					vals=x.values();
-					myvals=vals.head();
-					eci=myvals{"event_eci"};
-					toReturn=wranglerOS:skyQuery(eci,pds,profile,"trips");
+					vals=x.values().klog("Subscriptions: ");
+					myvals=vals.head().klog("Heads: ");
+					eci=myvals{"event_eci"}.klog("ecis: ");
+					toReturn=wranglerOS:skyQuery(eci,pds,profile,"trips")
+						.klog("trips: ");
 					toReturn;
 				}
 			);
