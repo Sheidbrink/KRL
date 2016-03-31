@@ -63,7 +63,7 @@ ruleset manage_fleet {
   rule collect_report {
     select when fleet collect_report
     fired {
-      set ent:report{event:attr{"eci"}} event:attr{"trips"};
+      set ent:report{time:now()} event:attr{"trips"};
       log(ent:report);
     }
   }

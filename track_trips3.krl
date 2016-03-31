@@ -64,7 +64,7 @@ ruleset track_trips {
   rule send_report {
     select when car send_report
     pre {
-      parent_results = wrangler_api:parent();
+      parent_results = wrangler_api:parent().klog("Parent: ");
       parent = parent_results{'parent'};
       parent_eci = parent[0];
     }
