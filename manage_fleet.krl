@@ -22,10 +22,17 @@ ruleset manage_fleet {
 						}
 					);
     }
-    //alltrips = function() {
-    //  foreach subscription setting (x)
-    //    call trips
-   // }
+    alltrips = function() {
+      trips = vehicles.map(function(x) {
+					vals=x.values();
+					myvals=vals.head();
+					eci=myvals{"event_eci"};
+					toReturn=wranglerOS:skyQuery(eci,pds,profile,"trips");
+					toReturn;
+				}
+			);
+     trips;
+    }
   }
 
   rule delete_vehicle {
