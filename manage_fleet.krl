@@ -7,10 +7,38 @@ ruleset manage_fleet {
     author "Scott Heidbrink"
     use module b507199x5 alias wranglerOS
     sharing on
-    provides vehicles, alltrips
+    provides vehicles, alltrips, cloud
   }
 
   global {
+        cloud_url = "https://#{meta:host()}/sky/cloud/";
+        cloud = function(eci, mod, func, params) {
+            response = http:get("#{cloud_url}#{mod}/#{func}", (params || {}).put(["_eci"], eci));
+ 
+ 
+            status = response{"status_code"};
+ 
+ 
+            error_info = {
+                "error": "sky cloud request was unsuccesful.",
+                "httpStatus": {
+                    "code": status,
+                    "message": response{"status_line"}
+                }
+            };
+ 
+ 
+            response_content = response{"content"}.decode();
+            response_error = (response_content.typeof() eq "hash" && response_content{"error"}) => response_content{"error"} | 0;
+            response_error_str = (response_content.typeof() eq "hash" && response_content{"error_str"}) => response_content{"error_str"} | 0;
+            error = error_info.put({"skyCloudError": response_error, "skyCloudErrorMsg": response_error_str, "skyCloudReturnValue": response_content});
+            is_bad_response = (response_content.isnull() || response_content eq "null" || response_error || response_error_str);
+ 
+ 
+            // if HTTP status was OK & the response was not null and there were no errors...
+            (status eq "200" && not is_bad_response) => response_content | error
+        };
+
     vehicles = function() {
       results = wranglerOS:subscriptions();
       subscriptions = results{"subscriptions"};
@@ -23,12 +51,13 @@ ruleset manage_fleet {
 					);
     }
     alltrips = function() {
-      stupid = vehicles().klog("VEHICLES: ");
+      //stupid = vehicles().klog("VEHICLES: ");
       trips = vehicles().map(function(x) {
 					vals=x.values().klog("Subscriptions: ");
 					myvals=vals.head().klog("Heads: ");
 					eci=myvals{"event_eci"}.klog("ecis: ");
-					toReturn=wranglerOS:skyQuery(eci,pds,profile,"trips")
+					//toReturn=wranglerOS:skyQuery(eci,pds,profile,"trips")
+					toReturn=cloud(eci,"b507766x6","trips","")
 						.klog("trips: ");
 					toReturn;
 				}
