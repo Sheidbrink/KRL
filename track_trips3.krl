@@ -1,6 +1,8 @@
 ruleset track_trips {
   meta {
     name "track_trips_v3"
+    sharing on
+    provides trips, long_trips, short_trips
   }
   global {
     trips = function() {

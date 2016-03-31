@@ -38,12 +38,14 @@ ruleset manage_fleet {
   rule delete_vehicle {
     select when car unneeded_vehicle
     pre {
-      attributes = {}.put(["channel_name"],event:attr("channel_name")) // channel name of the subscription
+      attributes = {}.put(["channel_name"],event:attr("channel_name")) // channel name of the subsc
                      .put(["deletionTarget"], event:attr("deleteeci")); // eci to pico to delete
     }
     {
-      event:send({"cid":meta:eci()}, "wrangler", "subscription_cancellation") with attrs = attributes("attributes: ");
-      event:send({"cid":meta:eci()}, "wrangler", "child_deletion") with attrs = attributes("attributes: ");
+      event:send({"cid":meta:eci()}, "wrangler", "subscription_cancellation") 
+	with attrs = attributes("attributes: ");
+      event:send({"cid":meta:eci()}, "wrangler", "child_deletion") 
+	with attrs = attributes("attributes: ");
     }
   }
 
