@@ -14,7 +14,7 @@ ruleset manage_fleet {
     vehicles = function() {
       results = wranglerOS:subscriptions();
       subscriptions = results{"subscriptions"};
-      subscriptions{"subscribed"}.map(
+      subscriptions{"subscribed"}.filter(
 				function(x) {
 						vals=x.values();
 						myvals=vals.head();
