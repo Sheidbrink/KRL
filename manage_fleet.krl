@@ -13,20 +13,20 @@ ruleset manage_fleet {
   global {
     vehicles = function() {
       results = wranglerOS:subscriptions();
-      subscriptions = results{"subscriptions"}.filter(function(x) {x{["subscribed", "name_space"]} == re/"Vehicle_Subscriptions:*"/ } );
+      subscriptions = results{"subscriptions"}{"subscribed"}; //.filter(function(x) {x{"name_space"} == re/"Vehicle_Subscriptions:*"/ } );
       subscriptions;
     }
-    //alltrips = function() {
-    //  foreach subscription setting (x)
-        //call trips
-    //}
+    alltrips = function() {
+      foreach subscription setting (x)
+        call trips
+    }
   }
 
   rule delete_vehicle {
     select when car unneeded_vehicle
     pre {
-      attributes = {}.put(["channel_name"],event:attr("channel_name"))
-                     .put(["deletionTarget"], event:attr("deleteeci"));
+      attributes = {}.put(["channel_name"],event:attr("channel_name")) // channel name of the subscription
+                     .put(["deletionTarget"], event:attr("deleteeci")); // eci to pico to delete
     }
     {
       event:send({"cid":meta:eci()}, "wrangler", "subscription_cancellation") with attrs = attributes("attributes: ");
