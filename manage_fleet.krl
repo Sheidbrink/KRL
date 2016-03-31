@@ -7,7 +7,7 @@ ruleset manage_fleet {
     author "Scott Heidbrink"
     use module b507199x5 alias wranglerOS
     sharing on
-    provides vehicles, alltrips, cloud
+    provides vehicles, alltrips, cloud, report
   }
 
   global {
@@ -43,6 +43,9 @@ ruleset manage_fleet {
 				}
 			);
      trips;
+    }
+    report = function () {
+       ent:report;
     }
   }
 
