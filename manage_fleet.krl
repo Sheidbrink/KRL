@@ -61,7 +61,7 @@ ruleset manage_fleet {
     fired{
       set ent:report{index} {};
       set ent:indx next_index;
-      raise explicit event 'request_report' with attrs = {}.put(["rIndx"], index).klog("sending: ");
+      raise explicit event 'request_report';
     }
   }
 
@@ -73,10 +73,9 @@ ruleset manage_fleet {
 		myvals = vals.head();
 		eci = myvals{"event_eci"}.klog("vehicle eci: ");
 		name = vehicle.keys().head().klog("vehicle name: ");
-		index = event:attr("rIndx").klog("MY -- index: ");
 	}
 	{
-		event:send({"cid":eci}, "car", "send_report") with attrs = {}.put(["name"], name).klog("sending :" ).put(["rIndx"], index);
+		event:send({"cid":eci}, "car", "send_report") with attrs = {}.put(["name"], name).klog("sending :" ).put(["rIndx"], ent:indx);
 	}
         fired {
           log(event:attrs());
