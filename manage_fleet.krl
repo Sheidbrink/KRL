@@ -69,10 +69,13 @@ ruleset manage_fleet {
     pre {
       name = event:attr("name").klog("vehicle name: ");
       trips = event:attr("trips").klog("the trips: ");
+      index = ent:indx;
+      next_index = (index > 5) => 0 | (index + 1);
     }
     fired {
       clear ent:report;
-      set ent:report{name} trips;
+      set ent:report{[index, name]} trips;
+      set ent:indx next_index;
       log(ent:report);
     }
   }
