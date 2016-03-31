@@ -53,10 +53,10 @@ ruleset manage_fleet {
 	name = event:attr("channel_name");
     }
     {
-      event:send({"cid":meta:eci()}, "wrangler", "subscription_cancellation") 
-	with attrs = {}.put(["deletionTarget"], eci).klog("attributes for delete: ");
       event:send({"cid":meta:eci()}, "wrangler", "child_deletion") 
-	with attrs = {}.put(["channel_name"], name).klog("attributes for unsubscription");
+	with attrs = {}.put(["deletionTarget"], eci).klog("attributes for delete: ");
+      event:send({"cid":meta:eci()}, "wrangler", "subscription_cancellation") 
+	with attrs = {}.put(["channel_name"], name).klog("attributes for unsubscription: ");
     }
   }
 
