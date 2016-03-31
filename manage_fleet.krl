@@ -78,6 +78,9 @@ ruleset manage_fleet {
 	{
 		event:send({"cid":eci}, "car", "send_report") with attrs = {}.put(["name"], name).klog("sending :" ).put(["rIndx"], index);
 	}
+        fired {
+          log(event:attrs());
+        }
     }
 
   rule fleet_clear {
