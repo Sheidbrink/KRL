@@ -50,7 +50,7 @@ ruleset manage_fleet {
     select when fleet generate_report
 	foreach vehicles() setting (vehicle)
 	  pre{
-		vals=x.values();
+		vals=vehicle.values();
 		myvals = vals.head();
 		eci = myvals{"event_eci"};
 		}
