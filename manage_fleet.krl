@@ -66,8 +66,6 @@ ruleset manage_fleet {
     fired {
       set ent:report{event:attr{"eci"}} event:attr{"trips"};
       log(ent:report);
-      send_directive("say") with
-         report = ent:report
     }
   }
 
