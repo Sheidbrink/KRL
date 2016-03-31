@@ -46,6 +46,27 @@ ruleset manage_fleet {
     }
   }
 
+  rule request_report {
+    select when fleet generate_report
+    {
+       vehicles().map(function(x) {
+				vals=x.values();
+				myvals = vals.head();
+				eci = myvals{"event_eci"};
+				event:send({"cid":eci}, "car", "send_report");
+ 				eci;
+			}
+    }
+  }
+
+  rule collect_report {
+    select when fleet collect_report
+    {
+      set ent:report{event:attr{"eci"}} event:attr{"trips"};
+      log(ent:report);
+    }
+  }
+
   rule delete_vehicle {
     select when car unneeded_vehicle
     pre {
