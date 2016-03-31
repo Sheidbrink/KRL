@@ -53,6 +53,8 @@ ruleset manage_fleet {
 		vals=vehicle.values().klog("VALUES: ");
 		myvals = vals.head();
 		eci = myvals{"event_eci"}.klog("vehicle eci: ");
+
+test = vehicle.klog("THE VEHICLE: ");
 		name = vehicle.head().klog("vehicle name: ");
 	}
 	{
