@@ -63,8 +63,8 @@ ruleset manage_fleet {
 	}
     }
 
-  rule clear {
-    select when fleet clear
+  rule fleet_clear {
+    select when fleet fleet_clear
     fired {
       clear ent:report;
       clear ent:indx;
