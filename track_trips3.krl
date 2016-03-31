@@ -67,9 +67,11 @@ ruleset track_trips {
       parent_results = wrangler_api:parent().klog("Parent: ");
       parent = parent_results{'parent'};
       parent_eci = parent[0];
+      name = event:attr("name");
+      trips = trips();
     }
     {
-      event:send({"eci": parent_eci}, "fleet", "collect_report") with attrs = {}.put(["trips"], trips()).put(["name"], event:attr("name"));
+      event:send({"eci": parent_eci}, "fleet", "collect_report") with attrs = {}.put(["trips"], trips).put(["name"], name);
     }
   }
 
