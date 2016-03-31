@@ -49,24 +49,35 @@ ruleset manage_fleet {
     }
   }
 
-  rule request_report {
+  rule next_report {
     select when fleet generate_report
+    pre {
+      	index = ent:indx;
+   	next_index = (index >= 4 || index.isnull()) => 0 | index + 1;
+	}
+    {
+	noop();
+    } 
+    fired{
+      set ent:report{index} {};
+      set ent:indx next_index;
+      raise explicit event 'request_report' with attrs = {}.put(["rIndx"], index);
+    }
+  }
+
+  rule request_report {
+    select when explicit request_report
 	foreach vehicles() setting (vehicle)
 	  pre{
 		vals=vehicle.values().klog("VALUES: ");
 		myvals = vals.head();
 		eci = myvals{"event_eci"}.klog("vehicle eci: ");
 		name = vehicle.keys().head().klog("vehicle name: ");
-      		index = ent:indx;
-     		 next_index = (index >= 4) => 0 | index + 1;
+		index = event:attr("rIndx");
 	}
 	{
 		event:send({"cid":eci}, "car", "send_report") with attrs = {}.put(["name"], name).klog("sending :" ).put(["rIndx"], index);
 	}
-        fired{
-           set ent:report{index} {};
-   		set ent:indx next_index;
-        }
     }
 
   rule fleet_clear {
