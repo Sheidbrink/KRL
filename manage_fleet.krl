@@ -23,7 +23,7 @@ ruleset manage_fleet {
 					);
     }
     alltrips = function() {
-      trips = vehicles.map(function(x) {
+      trips = vehicles().map(function(x) {
 					vals=x.values().klog("Subscriptions: ");
 					myvals=vals.head().klog("Heads: ");
 					eci=myvals{"event_eci"}.klog("ecis: ");
