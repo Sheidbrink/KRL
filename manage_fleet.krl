@@ -52,10 +52,11 @@ ruleset manage_fleet {
 	  pre{
 		vals=vehicle.values();
 		myvals = vals.head();
-		eci = myvals{"event_eci"};
-		}
+		eci = myvals{"event_eci"}.klog("vehicle eci: ");
+		name = vehicle[0].klog("v name: ");
+	}
 	{
-		event:send({"cid":eci}, "car", "send_report") with attrs = {}.put(["name"], vehicle[0]);
+		event:send({"cid":eci}, "car", "send_report") with attrs = {}.put(["name"], name);
 	}
     }
   
