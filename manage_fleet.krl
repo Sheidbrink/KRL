@@ -73,7 +73,6 @@ ruleset manage_fleet {
       next_index = (index > 5) => 0 | (index + 1);
     }
     fired {
-      clear ent:report;
       set ent:report{[index, name]} trips;
       set ent:indx next_index;
       log(ent:report);
