@@ -18,7 +18,7 @@ ruleset manage_fleet {
 				function(x) {
 						vals=x.values();
 						myvals=vals.head();
-						myvals{"name_space"};
+						myvals{"name_space"} == "Vehicle_Subscriptions";
 						}
 					);
     }
