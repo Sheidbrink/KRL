@@ -17,8 +17,8 @@ ruleset manage_fleet {
       subscriptions{"subscribed"}.map(
 				function(x) {
 						vals=x.values();
-						vals.head();
-						vals{"name_space"};
+						myvals=vals.head();
+						myvals{"name_space"};
 						}
 					);
     }
