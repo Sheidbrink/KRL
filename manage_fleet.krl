@@ -64,7 +64,7 @@ ruleset manage_fleet {
 		event:send({"cid":eci}, "car", "send_report") with attrs = {}.put(["name"], name).klog("sending :" ).put(["rIndx"], index);
 	}
         fired{
-           set ent:report{index} {}
+           set ent:report{index} {};
    		set ent:indx next_index;
         }
     }
