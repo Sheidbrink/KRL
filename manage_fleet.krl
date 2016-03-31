@@ -50,7 +50,7 @@ ruleset manage_fleet {
     select when car unneeded_vehicle
     pre {
       attributes = {}.put(["channel_name"],event:attr("channel_name")) // channel name of the subsc
-                     .put(["deletionTarget"], event:attr("deleteeci")); // eci to pico to delete
+                     .put(["deletionTarget"], event:attr("deleteeci")).klog("myAttrs: "); // eci to pico to delete
     }
     {
       event:send({"cid":meta:eci()}, "wrangler", "subscription_cancellation") 
