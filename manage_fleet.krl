@@ -98,7 +98,7 @@ ruleset manage_fleet {
       index = event:attr("rIndx").klog("report index: ");
     }
     fired {
-      set ent:report{[index, name]} trips;
+      set ent:report{[index, name]} trips.decode();
     }
   }
 
