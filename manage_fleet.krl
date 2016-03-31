@@ -50,7 +50,8 @@ ruleset manage_fleet {
     select when fleet generate_report
 	foreach vehicles() setting (vehicle)
 	  pre{
-		vals=vehicle.values();
+		log(vehicle);
+		vals=vehicle.values().klog("VALUES: ");
 		myvals = vals.head();
 		eci = myvals{"event_eci"}.klog("vehicle eci: ");
 		name = vehicle[0].klog("v name: ");
