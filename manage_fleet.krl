@@ -61,7 +61,7 @@ ruleset manage_fleet {
     fired{
       set ent:report{index} {};
       set ent:indx next_index;
-      raise explicit event 'request_report' with attrs = {}.put(["rIndx"], index);
+      raise explicit event 'request_report' with attrs = {}.put(["rIndx"], index).klog("sending: ");
     }
   }
 
