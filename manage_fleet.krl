@@ -68,11 +68,11 @@ ruleset manage_fleet {
     select when fleet collect_report
     pre {
       name = event:attr("name").klog("vehicle name: ");
-      trips = event:attr("trips").keys().klog("the trips: ");
+      trips = event:attr("trips").klog("the trips: ");
     }
     fired {
       clear ent:report;
-      set ent:report{name} evnt:attr;
+      set ent:report{name} trips;
       log(ent:report);
     }
   }
