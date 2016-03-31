@@ -62,7 +62,14 @@ ruleset manage_fleet {
 		event:send({"cid":eci}, "car", "send_report") with attrs = {}.put(["name"], name).klog("sending :" );
 	}
     }
-  
+
+  rule clear {
+    select when fleet clear
+    fired {
+      clear ent:report;
+      clear ent:indx;
+    }
+  }  
 
   rule collect_report {
     select when fleet collect_report
@@ -70,7 +77,7 @@ ruleset manage_fleet {
       name = event:attr("name").klog("vehicle name: ");
       trips = event:attr("trips").klog("the trips: ");
       index = ent:indx;
-      next_index = (index > 5) => 0 | (index + 1);
+      next_index = (index >= 4) => 0 | index + 1;
     }
     fired {
       set ent:report{[index, name]} trips;
