@@ -72,7 +72,7 @@ ruleset manage_fleet {
     }
     fired {
       clear ent:report;
-      set ent:report{name} trips;
+      set ent:report{name} evnt:attr;
       log(ent:report);
     }
   }
