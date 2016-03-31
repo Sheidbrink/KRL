@@ -62,9 +62,13 @@ ruleset manage_fleet {
 
   rule collect_report {
     select when fleet collect_report
+    pre {
+      name = event:attr{"name"};
+      trips = event:attr{"trips"};
+    }
     fired {
       clear ent:report;
-      set ent:report{event:attr{"name"}} event:attr{"trips"};
+      set ent:report{name} trips;
       log(ent:report);
     }
   }
