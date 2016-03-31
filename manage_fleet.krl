@@ -57,10 +57,16 @@ ruleset manage_fleet {
 		myvals = vals.head();
 		eci = myvals{"event_eci"}.klog("vehicle eci: ");
 		name = vehicle.keys().head().klog("vehicle name: ");
+      		index = ent:indx;
+     		 next_index = (index >= 4) => 0 | index + 1;
 	}
 	{
-		event:send({"cid":eci}, "car", "send_report") with attrs = {}.put(["name"], name).klog("sending :" );
+		event:send({"cid":eci}, "car", "send_report") with attrs = {}.put(["name"], name).klog("sending :" ).put(["rIndx"], index);
 	}
+        fired{
+           set ent:report{index} {}
+   		set ent:indx next_index;
+        }
     }
 
   rule fleet_clear {
@@ -76,13 +82,10 @@ ruleset manage_fleet {
     pre {
       name = event:attr("name").klog("vehicle name: ");
       trips = event:attr("trips").klog("the trips: ");
-      index = ent:indx;
-      next_index = (index >= 4) => 0 | index + 1;
+      index = event:attr("rIndx").klog("report index: ");
     }
     fired {
       set ent:report{[index, name]} trips;
-      set ent:indx next_index;
-      log(ent:report);
     }
   }
 

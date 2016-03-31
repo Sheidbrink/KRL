@@ -68,12 +68,14 @@ ruleset track_trips {
       parent = parent_results{"parent"};
       parent_eci = parent[0];
       name = event:attr("name").klog("name: ");
+      index = event:attr("rIndx").klog("name: ");
       myt = trips().klog("trips: ");
     }
     {
       event:send({"eci": parent_eci}, "fleet", "collect_report") 
 	with attrs = {}.put(["trips"], myt)
-			.put(["name"], name).klog("sending trips: ");
+			.put(["name"], name).klog("sending trips: ")
+			.put(["rIndx"], index);
     }
   }
 
