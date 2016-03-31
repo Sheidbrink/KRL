@@ -13,13 +13,13 @@ ruleset manage_fleet {
   global {
     vehicles = function() {
       results = wranglerOS:subscriptions();
-      subscriptions = results{"subscriptions"}{"subscribed"}; //.filter(function(x) {x{"name_space"} == re/"Vehicle_Subscriptions:*"/ } );
-      subscriptions;
+      subscriptions = results{"subscriptions"}; //.filter(function(x) {x{"name_space"} == re/"Vehicle_Subscriptions:*"/ } );
+      subscriptions{"subscribed"};
     }
-    alltrips = function() {
-      foreach subscription setting (x)
-        call trips
-    }
+    //alltrips = function() {
+    //  foreach subscription setting (x)
+    //    call trips
+   // }
   }
 
   rule delete_vehicle {
