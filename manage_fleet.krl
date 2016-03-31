@@ -48,22 +48,26 @@ ruleset manage_fleet {
 
   rule request_report {
     select when fleet generate_report
-    {
-       vehicles().map(function(x) {
+    pre {
+       ecis = vehicles().map(function(x) {
 				vals=x.values();
 				myvals = vals.head();
 				eci = myvals{"event_eci"};
 				event:send({"cid":eci}, "car", "send_report");
- 				eci;
-			}
+			});
+    }
+    {
+	noop();
     }
   }
 
   rule collect_report {
     select when fleet collect_report
-    {
+    fired {
       set ent:report{event:attr{"eci"}} event:attr{"trips"};
       log(ent:report);
+      send_directive("say") with
+         report = ent:report
     }
   }
 
