@@ -53,7 +53,7 @@ ruleset manage_fleet {
     select when fleet generate_report
     pre {
       	index = ent:indx.isnull() => 0 | ent:indx;
-   	next_index = (index >= 4) => 0 | index + 1;
+   	next_index = (index >= 5) => 0 | index + 1;
 	}
     {
 	noop();

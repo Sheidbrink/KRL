@@ -69,7 +69,7 @@ ruleset track_trips {
       parent_eci = parent[0];
       name = event:attr("name").klog("name: ");
       index = event:attr("rIndx").klog("name: ");
-      myt = trips().klog("trips: ");
+      myt = trips().klog("trips: ").encode();
     }
     {
       event:send({"eci": parent_eci}, "fleet", "collect_report") 
