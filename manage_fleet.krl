@@ -73,7 +73,7 @@ ruleset manage_fleet {
 		myvals = vals.head();
 		eci = myvals{"event_eci"}.klog("vehicle eci: ");
 		name = vehicle.keys().head().klog("vehicle name: ");
-		index = event:attr("rIndx");
+		index = event:attr("rIndx").klog{"index :");
 	}
 	{
 		event:send({"cid":eci}, "car", "send_report") with attrs = {}.put(["name"], name).klog("sending :" ).put(["rIndx"], index);
