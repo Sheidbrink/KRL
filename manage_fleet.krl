@@ -57,7 +57,7 @@ ruleset manage_fleet {
 					myvals=vals.head().klog("Heads: ");
 					eci=myvals{"event_eci"}.klog("ecis: ");
 					//toReturn=wranglerOS:skyQuery(eci,pds,profile,"trips")
-					toReturn=cloud(eci,"b507766x6","trips","")
+					toReturn=cloud(eci,"b507766x6","trips",{})
 						.klog("trips: ");
 					toReturn;
 				}
